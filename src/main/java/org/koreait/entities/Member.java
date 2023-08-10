@@ -26,6 +26,6 @@ public class Member extends BaseEntity{
     private String email;
     @Column(length = 11)
     private String mobile;
-    private String agree;
+    @Lob
     private String termsAgree;
 }

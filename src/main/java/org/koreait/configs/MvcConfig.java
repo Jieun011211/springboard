@@ -3,8 +3,11 @@ package org.koreait.configs;
 import lombok.RequiredArgsConstructor;
 import org.koreait.configs.interceptors.SiteConfigInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -36,4 +39,18 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(siteConfigInterceptor)
                 .addPathPatterns("/**");
     }
+
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
+        ms.setDefaultEncoding("UTF-8");
+        ms.setBasenames("messages.commons", "messages.validations", "messages.errors");
+
+        return  ms;
+    }
+
+    public HiddenHttpMethodFilter httpMethodFilter() {
+        return new HiddenHttpMethodFilter();
+    }
+
+
 }
