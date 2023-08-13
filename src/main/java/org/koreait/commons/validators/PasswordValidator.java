@@ -11,15 +11,21 @@ public interface PasswordValidator {
      * @return
      */
     default boolean alphaCheck(String password, boolean caseIncentive) {
+        if (caseIncentive) { //대소문자 구분없이 체크
 
-        return false;
+            return password.matches("[a-zA-Z]+");
+        }
+        //대문자, 소문자 각각체크
+        return password.matches("[a-z]+") && password.matches("[A-Z]+");
+
     }
     //숫자가 포함된 패턴
     default boolean numberCheck(String password) {
-        return false;
+        return password.matches("\\d+");
     }
     //특수문자
     default boolean specialCharsCheck(String password) {
-        return false;
+       // return password.matches("[`~!#$%\\^&\\*()-_+=]+");
+        return true;
     }
 }
